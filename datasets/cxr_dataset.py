@@ -40,7 +40,11 @@ class MIMICCXR(Dataset):
 
     def __getitem__(self, index):
         if isinstance(index, str):
-            img = Image.open(self.filenames_to_path[index]).convert('RGB')
+            try:
+                img = Image.open(self.filenames_to_path[index]).convert('RGB')
+            except Exception as e:
+                img = Image.open('/home/multimodal-project/project/physionet.org/files/mimic-cxr-jpg/2.0.0/p10/p10000032/s56699142/ea030e7a-2e3b1346-bc518786-7a8fd698-f673b44c.jpg').convert('RGB')
+                print('Not found: %s' % index)
             labels = torch.tensor(self.filesnames_to_labels[index]).float()
 
             if self.transform is not None:

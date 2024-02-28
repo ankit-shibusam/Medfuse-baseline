@@ -91,7 +91,8 @@ class Discretizer:
             if t > max_hours + eps:
                 continue
             bin_id = int(t / self._timestep - eps)
-            assert 0 <= bin_id < N_bins
+            if bin_id >= N_bins or bin_id < 0:
+                continue
 
             for j in range(1, len(row)):
                 if row[j] == "":

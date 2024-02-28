@@ -104,7 +104,7 @@ class FusionTrainer(Trainer):
             output = self.model(x, seq_lengths, img, pairs)
             
             pred = output[self.args.fusion_type].squeeze()
-            loss = self.loss(pred, y)
+            loss = self.loss(pred, y.squeeze())
             epoch_loss += loss.item()
             if self.args.align > 0.0:
                 loss = loss + self.args.align * output['align_loss']
@@ -150,11 +150,18 @@ class FusionTrainer(Trainer):
                     if len(pred.shape) > 1:
                          pred = pred.squeeze()
                            
-                loss = self.loss(pred, y)
+                loss = self.loss(pred, y.squeeze())
                 epoch_loss += loss.item()
                 if self.args.align > 0.0:
 
                     epoch_loss_align +=  output['align_loss'].item()
+                
+                
+                if outPRED.ndim > pred.ndim:
+                    pred = pred.unsqueeze(dim=0)
+                if outGT.ndim > y.ndim:
+                    y = y.unsqueeze(dim=0)
+
                 outPRED = torch.cat((outPRED, pred), 0)
                 outGT = torch.cat((outGT, y), 0)
                 # if 'ehr_feats' in output:

@@ -8,13 +8,13 @@ from tqdm import tqdm
 import os
 
 print('starting')
-data_dir = 'physionet.org/files/mimic-cxr-jpg'
+data_dir = '../physionet.org/files/mimic-cxr-jpg'
 version = '2.0.0'
 
 paths_done = glob.glob(f'{data_dir}/{version}/resized/**/*.jpg', recursive = True)
 print('done', len(paths_done))
 
-paths_all = glob.glob(f'{data_dir}/{version}/files/**/*.jpg', recursive = True)
+paths_all = glob.glob(f'{data_dir}/{version}/**/**/**/*.jpg', recursive = True)
 print('all', len(paths_all))
 
 

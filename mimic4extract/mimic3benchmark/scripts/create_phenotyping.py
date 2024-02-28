@@ -20,8 +20,8 @@ def process_partition(args, definitions, code_to_group, id_to_group, group_to_id
     patients = list(filter(str.isdigit, os.listdir(os.path.join(args.root_path, partition))))
     for patient in tqdm(patients, desc='Iterating over patients in {}'.format(partition)):
         patient_folder = os.path.join(args.root_path, partition, patient)
-        patient_ts_files = list(filter(lambda x: x.find("timeseries") != -1, os.listdir(patient_folder)))
 
+        patient_ts_files = list(filter(lambda x: x.find("timeseries") != -1, os.listdir(patient_folder)))
         for ts_filename in patient_ts_files:
             with open(os.path.join(patient_folder, ts_filename)) as tsfile:
                 lb_filename = ts_filename.replace("_timeseries", "")
@@ -104,7 +104,7 @@ def main():
     args, _ = parser.parse_known_args()
 
     with open(args.phenotype_definitions) as definitions_file:
-        definitions = yaml.load(definitions_file)
+        definitions = yaml.load(definitions_file, Loader=yaml.FullLoader)
 
     code_to_group = {}
 
