@@ -44,6 +44,7 @@ We used [MIMIC-IV EHR](https://physionet.org/content/mimiciv/1.0/) and [MIMIC CX
 
 Please specify the ehr_data_dir and cxr_data_dir directories paths before running the scripts.
 
+Run cxr_load.py to download CXR data. Download the entire CHR dataset from the above links
 
 We preprocess the cxr images and resize them to a relatively smaller dimension.
 Please run following to resize the images
